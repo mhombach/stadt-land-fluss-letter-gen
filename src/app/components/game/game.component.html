@@ -1,1 +1,8 @@
-<p>game works!</p>
+<div id="letterbox">
+    <span class="letter" *ngFor="let letter of gameService.alphabet" [ngClass]="{'used': letter.used}">{{letter.value}}</span>
+</div>
+<div id="currentletter">
+    <ng-container *ngIf="!allLettersUsed">
+        {{gameService.currentLetter?.value}}
+    </ng-container>
+</div>

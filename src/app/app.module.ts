@@ -7,7 +7,7 @@ import { GameComponent } from './components/game/game.component';
 @NgModule({
   declarations: [
     AppComponent,
-    GameComponent
+    GameComponent,
   ],
   imports: [
     BrowserModule

@@ -1,0 +1,81 @@
+:host {
+    display: block;
+    width: 100vw;
+    height: 90vh;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+:host.allLettersUsed {
+    background-image: url("/assets/restart_alt_black_24dp.svg");
+}
+
+:host.gameHasntStarted {
+    background-image: url("/assets/play_arrow_black_24dp.svg");
+}
+
+#letterbox {
+    display: flex;
+    position: sticky;
+    width: 100%;
+    top: 0;
+    left: 0;
+    font-size: 20pt;
+}
+
+#letterbox .letter {
+    width: 100%;
+    font-size: clamp(1pt, 4vw, 200pt);
+    text-align: center;
+}
+
+#letterbox .letter.used {
+    color: lightgrey;
+}
+
+#currentletter {
+    height: 100%;
+    font-size: 20em;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+:host::before {
+    content: '';
+    width: 100%;
+    height: 0%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    display: block;
+    background-color: rgba(60, 255, 239, 0.5);
+    transition: height 0.15s linear;
+}
+
+:host.holding::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    display: block;
+    background-color: rgba(60, 255, 239, 0.5);
+    transition: height 1s linear;
+}
+
+#pleaseReset {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#pleaseReset img {
+    width: 100%;
+    height: 100%;
+}

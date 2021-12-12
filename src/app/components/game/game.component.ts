@@ -12,6 +12,7 @@ export class GameComponent {
 
   private holdingTimeout: any;
   private holdingDelayTimeout: any;
+  private clickHoldingState: boolean;
 
   @HostBinding('class.allLettersUsed')
   allLettersUsed: boolean;
@@ -27,26 +28,18 @@ export class GameComponent {
   }
   constructor(public gameService: GameService) {
     this.allLettersUsed = false;
+    this.clickHoldingState = false;
   }
 
   @HostListener('document:touchstart')
-  @HostListener('document:mousedown')
   mouseDown(): void {
     if(!this.gameHasntStarted) {
       this.holdingDelayTimeout = window.setTimeout(() => {
+        this.clickHoldingState = true;
         this.holdingTimeout = window.setTimeout(() => {
           this.reset();
         }, 1000);
       }, this.HOLD_DELAY_IN_MS);
-    }
-  }
-
-  @HostListener('document:click')
-  clicked() {
-    if(this.gameHasntStarted || !this.allLettersUsed) {
-      this.nextLetter();
-    } else {
-      this.reset();
     }
   }
 
@@ -58,12 +51,19 @@ export class GameComponent {
   }
 
   @HostListener('document:touchend')
-  @HostListener('document:mouseup')
   mouseUp(): void {
     window.clearTimeout(this.holdingDelayTimeout);
     window.clearTimeout(this.holdingTimeout);
     this.holdingDelayTimeout = undefined;
     this.holdingTimeout = undefined;
+    if(!this.clickHoldingState) {
+      if(this.gameHasntStarted || !this.allLettersUsed) {
+        this.nextLetter();
+      } else {
+        this.reset();
+      }
+    }
+    this.clickHoldingState = false;
   }
 
   nextLetter(): void {
